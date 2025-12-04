@@ -3,8 +3,13 @@ const app = express();
 import path from "path";
 import { ENV } from "./lib/env.js";
 import { connectDB } from "./lib/db.js";
+import cors from "cors";
 
 const __dirname = path.resolve();
+
+// middleware to parse JSON requests
+app.use(express.json());
+app.use(cors({origin:ENV.CLIENT_URL,credentials:true}));
 
 app.get("/health", (req, res) => {
   res.status(200).send("Server is healthy");
